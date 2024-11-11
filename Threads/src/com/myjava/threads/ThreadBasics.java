@@ -44,12 +44,13 @@ public class ThreadBasics {
 
 	
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		
 		
 		System.out.print("\nTask 1 kicked off ");
 		
 		Task1 task1 = new Task1();
+		task1.setPriority(10);
 		task1.start();
 		
 		
@@ -59,10 +60,15 @@ public class ThreadBasics {
 		
 		Task2 task2=new Task2();
 		Thread task2Thread = new Thread(task2);
+		task2Thread.setPriority(1);
 		task2Thread.start();
 		
+		//wait for task 1 to complete
+		task1.join();
+		task2Thread.join();
 		
 		//Task3
+		System.out.print("\nTask 3 kicked off ");
 		for(int i=301;i<=400;i++) {
 			System.out.print(i+" ");
 			
